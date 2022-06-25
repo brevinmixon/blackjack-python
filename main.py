@@ -14,7 +14,7 @@ def make_deck():
 
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
-    print("Hello, B")  # Press Ctrl+F8 to toggle the breakpoint.
+    print("Hello, B ")  # Press Ctrl+F8 to toggle the breakpoint.
 
     deck=make_deck()
 
