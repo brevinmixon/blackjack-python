@@ -1,26 +1,47 @@
-# This is a sample Python script.
-import random
+from game import playgame
+from make_deck import makedeck
+import pygame
+from display import window
 
 
-def make_deck():
-    suits=["Hearts", "Clubs", "Spades", "Diamonds"]
-    ranks=[2,3,4,5,6,7,8,9,10,"J","Q","K","A"]
-    deck=[]
-    for i in range(13):
-        for j in range(4):
-            deck.append([ranks[i],suits[j]])
-    random.shuffle(deck)
-    return deck
+def main():
+    pygame.init()
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print("Hello, B ")  # Press Ctrl+F8 to toggle the breakpoint.
+    running = True
+    pygame.display.set_mode((400, 500))
+    color = (0, 255, 0)
 
-    deck=make_deck()
+    while running:
 
 
-# Press the green button in the gutter to run the script.
+
+        # Initialing RGB Color
+        color = (0, 255, 0)
+        #surface.fill(color)
+        pygame.display.flip()
+
+        #get number of players function
+        playgame()
+        choice = 0
+        while choice<1 or choice>2:
+            print("Want to Play Again?")
+            choice=input()     #make it so that input can only be a number
+            choice=int(choice)
+            if choice==1:
+                choice=0
+                playgame()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        pygame.quit()
+    return
+
+
+
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    main()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
