@@ -10,11 +10,12 @@ from test import test69
 Green=(0,255,0)
 FPS=60
 #to do list:
-#press 1 to play
+#press 1 to play, initilize with back of cards
 #press to play again
 #split hand
 #display current score
 #sounds
+#reveal dealers second card
 
 
 
@@ -30,8 +31,8 @@ def main():
     Win= pygame.display.set_mode((800, 500))
     start=False
     getcards=False
-    Playerphase=False
-    Dealerphase=False
+    playerphase=False
+    dealerphase=False
 
 
     while running:
@@ -112,7 +113,7 @@ def main():
                 Win.blit(P1, (390, 340))  # Player first card
 
                 Win.blit(D0, (400, 65))  # dealer face up
-                Win.blit(D1, (380, 65))
+                Win.blit(back, (380, 65))  #dealer face down
                 pygame.display.update()
 
                 #maybe display current score on table
@@ -121,7 +122,27 @@ def main():
                 print(playerscore)
                 print(dealerscore)
 
+                #check for blackjack, #print result onto screen
+                if  playerscore== 21 and dealerscore == 21:
+                    print("Blacjack. Tie.")
+                    #Play again?
+                elif playerscore == 21:
+                    print("Player 1 Wins")
+                    #Play again?
+                elif dealerscore == 21:
+                    print("Dealer Wins")
+                    #Play again?
             getcards=True
+
+            # Player Phase, How do i get it to wait for me
+            if playerphase==False:
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_1:
+                        player.append(deck.pop())
+                        print(player)
+                        #continue here, check score
+                    if event.key == pygame.K_2:
+                        playerphase=True
 
 
             #if event.type == pygame.KEYDOWN:
@@ -134,6 +155,8 @@ def main():
 
 
     pygame.quit()
+
+    #Maybe i should i put play again here
     return
 
 
@@ -143,16 +166,7 @@ def playgame(Win):
 
 
 
-    #Check for Blackjack for all players
-    if score(player)==21 and score(dealer)==21:
-        print("Blacjack. Tie.")
-        return
-    elif score(player)==21:
-        print("Player 1 Wins")
-        return
-    elif score(dealer)==21:
-        print("Dealer Wins")
-        return
+
 
     #Player Phase
     while True:
@@ -204,10 +218,10 @@ def score(list):
         return sum
 
     while aces>0:
-        aces-=1
-        sum-=10
         if sum<22:
             break
+        aces-=1
+        sum-=10
     return sum
 
 if __name__ == '__main__':
