@@ -1,0 +1,56 @@
+playgame()
+        choice = 0
+        while choice < 1 or choice > 2:
+            print("Want to Play Again?")
+            choice = input()  # make it so that input can only be a number
+            choice = int(choice)
+            if choice == 1:
+                choice = 0
+                playgame()
+
+
+from game import playgame
+from make_deck import makedeck
+import pygame
+from PIL import Image
+import os
+from display import window
+Blue=(0,255,0)
+FPS=60
+from PIL import Image
+
+im = Image.open("img.png")
+#img = Image.open(r"C:\Users\brevi\PycharmProjects\Blackjack-python\img.png")
+
+#Cardwith=
+#Cardheight=
+
+
+def main():
+    pygame.init()  #does this need to be here or outside the function
+    clock=pygame.time.Clock()
+
+    running = True
+    Win= pygame.display.set_mode((800, 500))
+    Green = (0, 255, 0)
+
+    while running:
+        #clock.tick(60)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        Win.fill(Green)
+
+        table=pygame.image.load('table.png').convert_alpha()
+        pygame.Surface.convert_alpha(table)
+        table = pygame.transform.scale(table, (800, 500))
+        Win.blit(table,(0,0))
+        pygame.display.flip()
+
+        playgame()
+
+    pygame.quit()
+    return
+
+if __name__ == '__main__':
+    main()
